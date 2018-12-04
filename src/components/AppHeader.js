@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
-import Modal from '@material-ui/core/Modal';
+//import Modal from '@material-ui/core/Modal';
+
+import FormDialog from './FormDialog';
 
 class AppHeader extends React.Component {
     constructor() {
@@ -23,7 +25,7 @@ class AppHeader extends React.Component {
     render() {
         return (
             <div className="container">
-                <Modal
+                {/* <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     open={this.state.showModal}
@@ -52,8 +54,8 @@ class AppHeader extends React.Component {
                             <button type='submit' className='btn btn-secondary'>Adicionar</button>
                         </span>
                     </form>
-                </Modal>
-
+                </Modal> */}
+                <FormDialog showModal={this.state.showModal} handleClose={this.handleCloseModal}/>
                 <IconButton onClick={this.handleOpenModal}>
                     <AddIcon />
                 </IconButton>

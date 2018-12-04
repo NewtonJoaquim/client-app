@@ -10,3 +10,9 @@ export const fetchClients = () =>{
         })
     }
 }
+
+// export const deleteClient = (id) =>{
+//     return async (dispatch) =>{
+//         await Axios.delete('http://54.147.244.100/api/customers/'+id)
+//     }
+// }

@@ -7,16 +7,25 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit'
+import Axios from 'axios';
 
 import { fetchClients } from '../actions/index'
 
 class ClientList extends React.Component {
+
     componentDidMount() {
         this.props.fetchClients();
     }
 
     onDeletePressed(key){
-        alert('Pressed')
+        Axios.delete('http://54.147.244.100/api/customers/'+key).then(()=>{
+            this.props.fetchClients();
+            this.forceUpdate()
+        })       
+    }
+
+    onEditPressed(key){
+        
     }
 
     render() {
