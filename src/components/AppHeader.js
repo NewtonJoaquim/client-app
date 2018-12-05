@@ -15,8 +15,7 @@ class AppHeader extends React.Component {
             showModal: false,
             formName:'',
             formCpf:'',
-            formBirthday:'',
-            searchTerm:''
+            formBirthday:''
         };
     }
 
@@ -53,9 +52,8 @@ class AppHeader extends React.Component {
     }
 
     onInputChange = (event) =>{
-        this.setState({searchTerm:event.target.value})
-        console.log(this.state.searchTerm)
-        this.props.fetchClient(this.state.searchTerm)
+        console.log(event.target.value)
+        this.props.fetchClient(event.target.value)
     }
 
     render() {
@@ -80,12 +78,8 @@ class AppHeader extends React.Component {
                     <input
                         placeholder='Buscar Usuário pelo Nome'
                         className='form-control'
-                        value={this.state.searchTerm}
                         onChange={this.onInputChange}
                     />
-                    {/* <span className='input-group-btn'>
-                        <button type='submit' className='btn btn-secondary'>Buscar</button>
-                    </span> */}
                 </form>
             </div>
         )

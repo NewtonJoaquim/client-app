@@ -19,7 +19,13 @@ export const fetchClient = (name) => {
 
         let clientList = []
 
-        response.data.data.map(client => {
+        // response.data.data.map((client) => {
+        //     if (client.name.includes(name)) {
+        //         clientList.push(client)
+        //     }
+        // })
+
+        response.data.data.forEach((client) =>{
             if (client.name.includes(name)) {
                 clientList.push(client)
             }
