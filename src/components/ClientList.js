@@ -7,7 +7,6 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit'
-import Axios from 'axios';
 
 import { fetchClients, editClient, deleteClient } from '../actions/index'
 import FormDialog from './FormDialog';
@@ -21,8 +20,7 @@ class ClientList extends React.Component {
             formName:'',
             formCpf:'',
             formBirthday:'',
-            clientId:'',
-            changed:false
+            clientId:''
         };
     }
 
@@ -31,16 +29,11 @@ class ClientList extends React.Component {
     }
 
     componentWillUpdate(){
-        this.props.fetchClients();
+        //this.props.fetchClients();
     }
 
     onDeletePressed(key) {
-        // Axios.delete('http://54.147.244.100/api/customers/' + key).then(() => {
-        //     this.props.fetchClients();
-        //     this.forceUpdate()
-        // })
         this.props.deleteClient(key)
-        //this.setState({changed:true})
         console.log('deletou')
     }
 
