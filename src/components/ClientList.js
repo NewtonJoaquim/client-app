@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit'
 import Axios from 'axios';
 
-import { fetchClients } from '../actions/index'
+import { fetchClients, editClient, deleteClient } from '../actions/index'
 import FormDialog from './FormDialog';
 
 class ClientList extends React.Component {
@@ -20,7 +20,9 @@ class ClientList extends React.Component {
             showModal: false,
             formName:'',
             formCpf:'',
-            formBirthday:''
+            formBirthday:'',
+            clientId:'',
+            changed:false
         };
     }
 
@@ -28,11 +30,18 @@ class ClientList extends React.Component {
         this.props.fetchClients();
     }
 
+    componentWillUpdate(){
+        this.props.fetchClients();
+    }
+
     onDeletePressed(key) {
-        Axios.delete('http://54.147.244.100/api/customers/' + key).then(() => {
-            this.props.fetchClients();
-            this.forceUpdate()
-        })
+        // Axios.delete('http://54.147.244.100/api/customers/' + key).then(() => {
+        //     this.props.fetchClients();
+        //     this.forceUpdate()
+        // })
+        this.props.deleteClient(key)
+        //this.setState({changed:true})
+        console.log('deletou')
     }
 
     handleCloseModal = () => {
@@ -55,49 +64,15 @@ class ClientList extends React.Component {
     }
 
     onEditPressed(client) {
-        this.setState({showModal:true,formName:client.name, formCpf:client.cpf, formBirthday:client.birthdate})
+        this.setState({showModal:true,formName:client.name, formCpf:client.cpf, formBirthday:client.birthdate,clientId:client.id})
     }
 
-    onFormSubmit(){
-        
+    onFormSubmit =() => {
+        this.props.editClient(this.state.formName, this.state.formCpf, this.state.formBirthday, this.state.clientId)
+        this.forceUpdate()
     }
 
     render() {
-        // return this.props.clients.map(client => {
-        //     return (
-        //         <div>
-        //             <FormDialog
-        //                 showModal={this.state.showModal}
-        //                 handleClose={this.handleCloseModal}
-        //                 buttonClick={this.onFormSubmit}
-        //                 name={this.state.formName}
-        //                 onNameChange={this.onNameChange}
-        //                 cpf={this.state.formCpf}
-        //                 onCpfChange={this.onCpfChange}
-        //                 birthday={this.state.formBirthday}
-        //                 onBirthdayChange={this.onBirthdayChange}
-        //             />
-
-        //             <Card key={client.id}>
-        //                 <CardHeader
-        //                     title={client.name}
-        //                 />
-        //                 <CardContent>
-        //                     <p>CPF: {client.cpf}</p>
-        //                     <p>Aniversário: {client.birthdate}</p>
-        //                 </CardContent>
-        //                 <CardActions>
-        //                     <IconButton aria-label="Edit Info" onClick={() => this.onEditPressed(client)}>
-        //                         <EditIcon />
-        //                     </IconButton>
-        //                     <IconButton aria-label="Delete" onClick={() => this.onDeletePressed(client.id)}>
-        //                         <DeleteIcon />
-        //                     </IconButton>
-        //                 </CardActions>
-        //             </Card>
-        //         </div>
-        //     )
-        // })
         return(
             <div>
                 <FormDialog
@@ -143,4 +118,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchClients })(ClientList)
+export default connect(mapStateToProps, { fetchClients, editClient, deleteClient })(ClientList)
