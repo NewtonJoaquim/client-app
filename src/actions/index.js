@@ -16,3 +16,19 @@ export const fetchClients = () =>{
 //         await Axios.delete('http://54.147.244.100/api/customers/'+id)
 //     }
 // }
+
+export const addClient = (name, cpf, birthday) =>{
+    return async (dispatch) => {
+        const response = await Axios.post('http://54.147.244.100/api/customers',
+        {
+            name:name,
+            cpf:cpf,
+            birthday:birthday
+        })
+
+        console.log(response)
+        dispatch({
+            type:'ADD_CLIENT',
+        })
+    }
+}
